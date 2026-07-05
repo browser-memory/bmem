@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { Command } from "commander";
 import { addCommand } from "./commands/add.js";
 import { installCommand } from "./commands/install.js";
@@ -5,14 +8,19 @@ import { listCommand } from "./commands/list.js";
 import { searchCommand } from "./commands/search.js";
 import { showCommand } from "./commands/show.js";
 
+// Read the version from package.json so `--version` never drifts from what ships.
+const pkg = JSON.parse(
+  readFileSync(join(dirname(fileURLToPath(import.meta.url)), "..", "package.json"), "utf8"),
+);
+
 const program = new Command();
 
 program
   .name("bmem")
   .description(
-    "Open catalog of web skills for AI agents — search, add, and run reusable browser recipes with whatever browser your agent already has.",
+    "Open catalog of web skills for AI agents. Search, add, and run reusable browser recipes with whatever browser your agent already has.",
   )
-  .version("0.1.0");
+  .version(pkg.version);
 
 program
   .command("search")
