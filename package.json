@@ -1,0 +1,37 @@
+{
+  "name": "bmem",
+  "version": "0.1.0",
+  "description": "Open catalog of web skills for AI agents. Search, add, and run reusable browser recipes with whatever browser your agent already has.",
+  "type": "module",
+  "bin": {
+    "bmem": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "skills"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "ai-agents",
+    "web-automation",
+    "skills",
+    "browser-agents"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  }
+}
