@@ -10,20 +10,24 @@ export interface SkillId {
   id: string;
 }
 
-// Validate & split "<domain>/<task>", guarding against path traversal.
-// Skills are keyed by site ("linkedin.com"); a legacy per-task form
-// ("linkedin.com/search-people") is still accepted.
+// Validate & split "<site>/<skill>", guarding against path traversal.
+// Each site groups several skills; you install one at a time
+// ("linkedin.com/get-profile"). The bare site is not a skill on its own.
 export function parseSkillId(raw: string): SkillId {
   const parts = raw.split("/").filter(Boolean);
   if (
     raw.includes("\\") ||
-    parts.length < 1 ||
-    parts.length > 2 ||
     parts.some((s) => s === "." || s === "..")
   ) {
-    throw new Error(`invalid skill id "${raw}". Use <site> or <site>/<task>.`);
+    throw new Error(`invalid skill id "${raw}".`);
   }
-  const [domain, task = ""] = parts;
+  if (parts.length !== 2) {
+    throw new Error(
+      `"${raw}" is not a skill. Pick one for the site, e.g. ${parts[0] || "linkedin.com"}/get-profile. ` +
+        `Run "bmem search ${parts[0] || raw}" to see a site's skills.`,
+    );
+  }
+  const [domain, task] = parts;
   return { domain, task, id: parts.join("/") };
 }
 
