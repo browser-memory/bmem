@@ -11,27 +11,31 @@ export interface SkillId {
 }
 
 // Validate & split "<domain>/<task>", guarding against path traversal.
+// Skills are keyed by site ("linkedin.com"); a legacy per-task form
+// ("linkedin.com/search-people") is still accepted.
 export function parseSkillId(raw: string): SkillId {
-  const parts = raw.split("/");
-  if (parts.length !== 2 || !parts[0] || !parts[1]) {
-    throw new Error(`skill must be in the form <domain>/<task>, got "${raw}".`);
+  const parts = raw.split("/").filter(Boolean);
+  if (
+    raw.includes("\\") ||
+    parts.length < 1 ||
+    parts.length > 2 ||
+    parts.some((s) => s === "." || s === "..")
+  ) {
+    throw new Error(`invalid skill id "${raw}". Use <site> or <site>/<task>.`);
   }
-  const [domain, task] = parts;
-  if (raw.includes("\\") || [domain, task].some((s) => s === "." || s === "..")) {
-    throw new Error(`invalid skill id "${raw}".`);
-  }
-  return { domain, task, id: raw };
+  const [domain, task = ""] = parts;
+  return { domain, task, id: parts.join("/") };
 }
 
 // Download every file of a skill into the local cache. Writes to a temp dir and
 // atomically renames, so a failed download never leaves a half-written skill.
 export async function downloadSkill(id: SkillId): Promise<string> {
   const manifest = await getManifest(id.id); // throws HttpError(404) if unknown
-  const installPath = join(BMEM_SKILLS_DIR, id.domain, id.task);
+  const installPath = join(BMEM_SKILLS_DIR, ...id.id.split("/"));
   const parent = dirname(installPath);
   await mkdir(parent, { recursive: true });
 
-  const tmp = await mkdtemp(join(parent, `.${id.task}-`));
+  const tmp = await mkdtemp(join(parent, `.${id.domain}-`));
   try {
     for (const file of manifest.files) {
       const bytes = await fetchBinary(file.url);
