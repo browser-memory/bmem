@@ -1,5 +1,6 @@
 import { HttpError } from "../api.js";
 import { downloadSkill, parseSkillId, runSkillsAdd } from "../install.js";
+import { reportInstall } from "../telemetry.js";
 
 // bmem add <name> — download a skill (manifest + blob) and register it natively
 // via the standalone `skills` installer (`npx skills add`).
@@ -23,4 +24,5 @@ export async function addCommand(name: string): Promise<void> {
 
   console.log(`Downloaded ${id.id} -> ${installPath}`);
   await runSkillsAdd(installPath);
+  await reportInstall(id.id);
 }

@@ -1,6 +1,6 @@
 {
   "name": "bmem-cli",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Open catalog of web skills for AI agents. Search, add, and run reusable browser recipes with whatever browser your agent already has.",
   "type": "module",
   "bin": {
