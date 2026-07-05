@@ -57,7 +57,7 @@ Cookies never leave the browser.
 
 | Env var                     | Default          | Purpose                        |
 | --------------------------- | ---------------- | ------------------------------ |
-| `BMEM_SKILLS_API_BASE_URL`  | `https://bmem.sh`| Skills API base (self-host)    |
+| `BMEM_SKILLS_API_BASE_URL`  | `https://browser-memory.com`| Skills API base (self-host)    |
 | `BMEM_HOME`                 | `~/.config/bmem` | Local cache of added skills    |
 
 ## Development

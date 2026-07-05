@@ -6,7 +6,7 @@ This file is the contract the public CLI depends on, so both sides stay in sync.
 Stack (planned): Next.js on Vercel · Postgres/KV for the search index · the `SKILL.md`
 bodies served from static/blob storage. Public, **read-only**, curated (no publish API).
 
-Base URL: `https://bmem.sh` (CLI override: `BMEM_SKILLS_API_BASE_URL`).
+Base URL: `https://browser-memory.com` (CLI override: `BMEM_SKILLS_API_BASE_URL`).
 
 ## Endpoints
 
@@ -57,15 +57,15 @@ not the frontmatter name (e.g. `name: search-people`, `site: linkedin.com`).
 
 ## Discovery surface: `llms.txt`
 
-A static, cacheable, CLI-less index. An agent (or a human) can `curl bmem.sh/llms.txt`
+A static, cacheable, CLI-less index. An agent (or a human) can `curl browser-memory.com/llms.txt`
 and see the entire catalog with zero auth and zero install. Format:
 
 ```
 # bmem — open catalog of web skills
 
 ## Skills
-- [linkedin.com/search-people](https://bmem.sh/skills/linkedin.com/search-people.md): Search people on LinkedIn… (read-only)
-- [reddit.com/search-posts](https://bmem.sh/skills/reddit.com/search-posts.md): Search Reddit posts… (read-only)
+- [linkedin.com/search-people](https://browser-memory.com/skills/linkedin.com/search-people.md): Search people on LinkedIn… (read-only)
+- [reddit.com/search-posts](https://browser-memory.com/skills/reddit.com/search-posts.md): Search Reddit posts… (read-only)
 ```
 
 `llms-full.txt` is the same list with each SKILL.md inlined — one fetch for the whole
