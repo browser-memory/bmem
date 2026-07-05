@@ -16,7 +16,7 @@ session stays put.
 ## Install
 
 ```bash
-npm i -g bmem
+npm i -g bmem-cli
 ```
 
 ## Usage
