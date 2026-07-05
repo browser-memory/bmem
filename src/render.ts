@@ -15,7 +15,7 @@ export function renderSkills(rows: IndexEntry[], json?: boolean): void {
       s.verified ? "verified" : "",
       s.side_effect,
       s.needs?.length ? `needs: ${s.needs.join(",")}` : "",
-      s.installCount != null ? `${s.installCount} installs` : "",
+      s.installCount != null ? `${s.installCount} recipes` : "",
     ]
       .filter(Boolean)
       .join(" · ");
