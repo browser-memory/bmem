@@ -1,24 +1,22 @@
 # bmem Skills API — server contract
 
-The catalog server is a separate, **private** project (`bmem-catalog`, not published).
-This file is the contract the public CLI depends on, so both sides stay in sync.
+The catalog lives in the **private** product backend (`browser-memory-landing/backend`),
+alongside the v1 registry. This file is the contract the public CLI depends on.
 
-Stack (planned): Next.js on Vercel · Postgres/KV for the search index · the `SKILL.md`
-bodies served from static/blob storage. Public, **read-only**, curated (no publish API).
+Stack: **Express on Railway** (`api.browser-memory.com`) · **Supabase Postgres** for the
+search index (`skills` table) · **Supabase Storage** (public bucket `skills`) for the
+`SKILL.md` bodies. Public, **read-only**, curated (no publish API — see the backend's
+`scripts/publish-skills.ts`).
 
-Base URL: `https://browser-memory.com` (CLI override: `BMEM_SKILLS_API_BASE_URL`).
+Base URL: `https://api.browser-memory.com` (CLI override: `BMEM_SKILLS_API_BASE_URL`).
 
 ## Endpoints
 
 | Method | Path | Auth | Purpose |
 | ------ | ---- | ---- | ------- |
-| `GET` | `/api/skills?q=&site=` | none | Search / list. `q` omitted = list all. Returns `{ skills: [IndexEntry] }`. |
-| `GET` | `/api/skills/{domain}/{task}/files` | none | **File manifest** for `bmem add`: `{ skillId, files: [{ path, url }] }`. `url` is an absolute blob URL. |
-| `GET` | `<blob url>` | none | The actual file bytes (SKILL.md, etc.), served from blob storage. |
-| `GET` | `/skills/{domain}/{task}.md` | none | Web/`llms.txt` surface — the rendered SKILL.md for humans & agents reading directly (NOT what `bmem add` uses). |
-| `GET` | `/llms.txt` | none | Static discovery index (see below). |
-| `GET` | `/llms-full.txt` | none | Same index but with every SKILL.md inlined. |
-| `GET` | `/api/icon?domain=&sz=64` | none | Favicon (UI only). |
+| `GET` | `/v1/skills?q=&site=` | none | Search / list. `q` omitted = list all. Returns `{ skills: [IndexEntry] }`. |
+| `GET` | `/v1/skills/{domain}/{task}/files` | none | **File manifest** for `bmem add`: `{ skillId, files: [{ path, url }] }`. `url` is the public Supabase Storage URL. |
+| `GET` | `<storage url>` | none | The actual SKILL.md bytes, served from the public Storage bucket. |
 
 ### IndexEntry (search result — keep it < ~300 tokens)
 

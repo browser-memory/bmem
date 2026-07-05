@@ -31,14 +31,14 @@ async function getJSON<T>(url: string): Promise<T> {
   return res.json() as Promise<T>;
 }
 
-// GET /api/skills?q=&site=  — search passes q, list omits it.
+// GET /v1/skills?q=&site=  — search passes q, list omits it.
 export async function searchSkills(q?: string, site?: string): Promise<IndexEntry[]> {
   const params = new URLSearchParams();
   if (q) params.set("q", q);
   if (site) params.set("site", site);
   const qs = params.toString();
   const data = await getJSON<{ skills: IndexEntry[] }>(
-    `${API_BASE}/api/skills${qs ? `?${qs}` : ""}`,
+    `${API_BASE}/v1/skills${qs ? `?${qs}` : ""}`,
   );
   return data.skills ?? [];
 }
@@ -49,9 +49,9 @@ export interface FileManifest {
   files: { path: string; url: string }[];
 }
 
-// GET /api/skills/{domain}/{task}/files  — lists the files + their blob URLs.
+// GET /v1/skills/{domain}/{task}/files  — lists the files + their blob URLs.
 export function getManifest(name: string): Promise<FileManifest> {
-  return getJSON<FileManifest>(`${API_BASE}/api/skills/${name}/files`);
+  return getJSON<FileManifest>(`${API_BASE}/v1/skills/${name}/files`);
 }
 
 // Download one file (from the absolute blob URL the manifest returned).
