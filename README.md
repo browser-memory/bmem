@@ -1,4 +1,20 @@
-# bmem
+<p align="center">
+  <a href="https://browser-memory.com">
+    <img src="https://raw.githubusercontent.com/browser-memory/bmem/main/assets/logo.jpg" alt="bmem" width="140">
+  </a>
+</p>
+
+<h1 align="center">browser-memory</h1>
+
+<p align="center">
+  <b>Open catalog of web skills for AI agents.</b><br>
+  <a href="https://browser-memory.com">browser-memory.com</a>
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/bmem-cli"><img src="https://img.shields.io/npm/v/bmem-cli.svg" alt="npm version"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/npm/l/bmem-cli.svg" alt="license"></a>
+</p>
 
 **Open catalog of web skills for AI agents.** Search reusable, battle-tested browser
 recipes, add them as native agent skills, and run them with **whatever browser your
