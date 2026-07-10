@@ -85,6 +85,24 @@ npm run typecheck
 node dist/index.js search linkedin
 ```
 
+
+## Sites
+
+<p align="center">
+  <a href="https://browser-memory.com/ecosystem/linkedin.com"><img src="https://browser-memory.com/sites/linkedin.com.svg" height="44" alt="LinkedIn — 14 skills"></a>
+  <a href="https://browser-memory.com/ecosystem/x.com"><img src="https://browser-memory.com/sites/x.com.svg" height="44" alt="X — 7 skills"></a>
+  <a href="https://browser-memory.com/ecosystem/github.com"><img src="https://browser-memory.com/sites/github.com.svg" height="44" alt="GitHub — 4 skills"></a>
+  <a href="https://browser-memory.com/ecosystem/doordash.com"><img src="https://browser-memory.com/sites/doordash.com.svg" height="44" alt="DoorDash — 3 skills"></a>
+  <a href="https://browser-memory.com/ecosystem/reddit.com"><img src="https://browser-memory.com/sites/reddit.com.svg" height="44" alt="Reddit — 3 skills"></a>
+  <a href="https://browser-memory.com/ecosystem/airbnb.com"><img src="https://browser-memory.com/sites/airbnb.com.svg" height="44" alt="Airbnb — 2 skills"></a>
+  <a href="https://browser-memory.com/ecosystem/amazon.com"><img src="https://browser-memory.com/sites/amazon.com.svg" height="44" alt="Amazon — 2 skills"></a>
+  <a href="https://browser-memory.com/ecosystem/youtube.com"><img src="https://browser-memory.com/sites/youtube.com.svg" height="44" alt="YouTube — 2 skills"></a>
+  <a href="https://browser-memory.com/ecosystem/booking.com"><img src="https://browser-memory.com/sites/booking.com.svg" height="44" alt="Booking.com — 1 skill"></a>
+  <a href="https://browser-memory.com/ecosystem/ebay.com"><img src="https://browser-memory.com/sites/ebay.com.svg" height="44" alt="eBay — 1 skill"></a>
+  <a href="https://browser-memory.com/ecosystem/yelp.com"><img src="https://browser-memory.com/sites/yelp.com.svg" height="44" alt="Yelp — 1 skill"></a>
+</p>
+
+
 ## License
 
 MIT
