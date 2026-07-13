@@ -35,6 +35,8 @@ session stays put.
 npm i -g bmem-cli
 ```
 
+Requires Node.js 20 or newer.
+
 ## Usage
 
 ```bash
