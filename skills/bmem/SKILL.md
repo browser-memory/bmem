@@ -30,7 +30,8 @@ Use this loop whenever a task involves operating a website.
 
 2. **Add the skill.** If one fits, register it as a native skill:
    ```
-   bmem add linkedin.com/search-people
+   bmem add linkedin.com/search-people   # one skill
+   bmem add linkedin                     # a bare site adds every skill it has
    ```
    After this the skill appears in your **own** skill list — invoke it natively.
    You do NOT call `bmem` again to read it.

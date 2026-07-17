@@ -48,8 +48,11 @@ program
 
 program
   .command("add")
-  .argument("<name>", "skill id, e.g. linkedin.com/search-people")
-  .description("Download a skill and register it as a native agent skill")
+  .argument(
+    "<name>",
+    "skill id (linkedin.com/search-people), or a bare site to add all of its skills (linkedin)",
+  )
+  .description("Download a skill — or every skill for a site — and register it natively")
   .option(
     "-g, --global",
     "Install user-level (global) so every project sees it; use --no-global for project-level",
