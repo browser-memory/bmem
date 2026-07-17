@@ -40,13 +40,13 @@ Requires Node.js 20 or newer, with npx available.
 
 | Command | What it does |
 | --- | --- |
-| `bmem search <query>` | Search the catalog. `--site linkedin.com` to filter by site |
-| `bmem list` | List the whole catalog. `--limit 50` to cap results |
-| `bmem show <skill>` | Print a skill's `SKILL.md` without installing it |
-| `bmem add <skill>` | Download + register a skill natively. **Global by default**; `--no-global` for project scope |
-| `bmem add <site>` | A bare site (`linkedin`, `doordash.com`) adds **every** skill the site has, one by one |
-| `bmem update [skill]` | Re-fetch installed skills and re-register the ones that changed. Omit the name to update all |
-| `bmem install` | Register the bundled **meta-skill** that teaches your agent the commands and how to map skill capabilities to its own browser tools |
+| <code>bmem&nbsp;search&nbsp;&lt;query&gt;</code> | Search the catalog. `--site linkedin.com` to filter by site |
+| <code>bmem&nbsp;list</code> | List the whole catalog. `--limit 50` to cap results |
+| <code>bmem&nbsp;show&nbsp;&lt;skill&gt;</code> | Print a skill's `SKILL.md` without installing it |
+| <code>bmem&nbsp;add&nbsp;&lt;skill&gt;</code> | Download + register a skill natively. **Global by default**; `--no-global` for project scope |
+| <code>bmem&nbsp;add&nbsp;&lt;site&gt;</code> | A bare site (`linkedin`, `doordash.com`) adds **every** skill the site has, one by one |
+| <code>bmem&nbsp;update&nbsp;[skill]</code> | Re-fetch installed skills and re-register the ones that changed. Omit the name to update all |
+| <code>bmem&nbsp;install</code> | Register the bundled **meta-skill** that teaches your agent the commands and how to map skill capabilities to its own browser tools |
 
 
 
