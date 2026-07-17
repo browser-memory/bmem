@@ -58,10 +58,19 @@ export async function downloadSkill(id: SkillId): Promise<string> {
 
 // Register a skill natively by delegating to the standalone `skills` installer:
 // `npx --yes skills add <path> [extra]`. The installer detects the agent
-// (Claude Code, Cursor, …) and writes to the right place.
+// (Claude Code, Cursor, …) and writes to the right place. Its output is very
+// noisy (ASCII banner, per-agent trees), so we capture it and stay silent on
+// success — only surfacing the raw output if the install actually fails.
 export async function runSkillsAdd(path: string, extraArgs: string[] = []): Promise<void> {
-  const code = await spawnInherit("npx", ["--yes", "skills", "add", path, ...extraArgs]);
+  const { code, output } = await spawnCapture("npx", [
+    "--yes",
+    "skills",
+    "add",
+    path,
+    ...extraArgs,
+  ]);
   if (code !== 0) {
+    process.stderr.write(output);
     throw new Error(
       `\`npx skills add\` exited with code ${code}. ` +
         `Make sure Node.js/npx is installed (https://nodejs.org).`,
@@ -69,10 +78,16 @@ export async function runSkillsAdd(path: string, extraArgs: string[] = []): Prom
   }
 }
 
-function spawnInherit(cmd: string, args: string[]): Promise<number> {
+function spawnCapture(
+  cmd: string,
+  args: string[],
+): Promise<{ code: number; output: string }> {
   return new Promise((resolve) => {
-    const child = spawn(cmd, args, { stdio: "inherit" });
-    child.on("error", () => resolve(1));
-    child.on("close", (code) => resolve(code ?? 0));
+    const child = spawn(cmd, args, { stdio: ["ignore", "pipe", "pipe"] });
+    let output = "";
+    child.stdout?.on("data", (d) => (output += d.toString()));
+    child.stderr?.on("data", (d) => (output += d.toString()));
+    child.on("error", () => resolve({ code: 1, output }));
+    child.on("close", (code) => resolve({ code: code ?? 0, output }));
   });
 }

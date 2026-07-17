@@ -44,7 +44,8 @@ bmem search <query>              # search the catalog, e.g. bmem search linkedin
 bmem search --site linkedin.com  # filter by site
 bmem list [--limit 50]           # list the whole catalog
 bmem show linkedin.com/search-people  # print a skill's SKILL.md without installing
-bmem add linkedin.com/search-people   # download + register a skill natively
+bmem add linkedin.com/search-people   # download + register a skill natively (global)
+bmem update [name]               # re-fetch installed skills, re-register changed ones
 bmem install                     # register the bundled bmem meta-skill (bootstrap)
 ```
 
@@ -53,6 +54,13 @@ command surface plus how to map each skill's capabilities (`navigate`, `evaluate
 to its own browser tools. After that, `bmem add <name>` makes a skill show up in the
 agent's native skill list, and the agent invokes it directly.
 
+**`add` installs globally by default** (user-level), so every project sees the skill.
+Pass `--no-global` to install it into the current project instead.
+
+**`bmem update`** re-fetches your installed skills and re-registers only the ones whose
+content actually changed (unchanged skills are skipped). With no name it updates
+everything you added via bmem; pass a name to update a single skill.
+
 `add` and `install` register skills by delegating to the standalone
 [`skills`](https://www.npmjs.com/package/skills) installer (`npx skills add …`), which
 detects your agent (Claude Code, Cursor, …) and writes to the right place — so `npx`
@@ -60,14 +68,22 @@ must be available.
 
 ## How a skill runs
 
-A skill is a `SKILL.md`: YAML frontmatter (machine) + a browser-agnostic recipe. It
-declares the **capabilities** it needs and ships the exact selectors — and, when
-possible, the direct in-page XHR — so the agent skips reading a full DOM. Execution is
-one path:
+A skill is a small folder — a `SKILL.md` plus an `evaluate.js`:
+
+- **`SKILL.md`** — YAML frontmatter (machine-readable: the `needs` capabilities, `params`,
+  `returns`, `version`) followed by a browser-agnostic recipe the agent follows. It points
+  at the extractor via `extractor: evaluate.js`.
+- **`evaluate.js`** — the extractor itself: an `async (root, params) => { … }` function
+  that runs in the page (an authenticated in-page `fetch` + parse), so the agent skips
+  reading a full DOM.
+
+The extractor is stored once in the page's `localStorage` and reused on every later call,
+gated by `version` — so it only passes through the model once:
 
 1. `navigate` to establish the session,
-2. `evaluate` the skill's extractor (an in-page authenticated `fetch` + parse),
-3. get back the JSON.
+2. call the stored extractor (params only); if it's missing or stale it reports
+   `NEEDS_STORE`,
+3. store `evaluate.js` once when needed, then call again → JSON back.
 
 Cookies never leave the browser.
 

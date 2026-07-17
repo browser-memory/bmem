@@ -7,6 +7,7 @@ import { installCommand } from "./commands/install.js";
 import { listCommand } from "./commands/list.js";
 import { searchCommand } from "./commands/search.js";
 import { showCommand } from "./commands/show.js";
+import { updateCommand } from "./commands/update.js";
 
 // Read the version from package.json so `--version` never drifts from what ships.
 const pkg = JSON.parse(
@@ -49,7 +50,18 @@ program
   .command("add")
   .argument("<name>", "skill id, e.g. linkedin.com/search-people")
   .description("Download a skill and register it as a native agent skill")
-  .action(addCommand);
+  .option(
+    "-g, --global",
+    "Install user-level (global) so every project sees it; use --no-global for project-level",
+    true,
+  )
+  .action((name, opts) => addCommand(name, { global: opts.global }));
+
+program
+  .command("update")
+  .argument("[name]", "skill id to update; omit to update every installed skill")
+  .description("Re-fetch installed skills and re-register the ones that changed")
+  .action(updateCommand);
 
 program
   .command("install")

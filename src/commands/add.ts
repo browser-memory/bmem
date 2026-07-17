@@ -3,8 +3,13 @@ import { downloadSkill, parseSkillId, runSkillsAdd } from "../install.js";
 import { reportInstall } from "../telemetry.js";
 
 // bmem add <name> — download a skill (manifest + blob) and register it natively
-// via the standalone `skills` installer (`npx skills add`).
-export async function addCommand(name: string): Promise<void> {
+// via the standalone `skills` installer (`npx skills add`). Installs global by
+// default so every project sees the skill; pass { global: false } for project scope.
+export async function addCommand(
+  name: string,
+  opts: { global?: boolean } = {},
+): Promise<void> {
+  const { global = true } = opts;
   const id = parseSkillId(name);
 
   let installPath: string;
@@ -22,7 +27,10 @@ export async function addCommand(name: string): Promise<void> {
     throw err;
   }
 
-  console.log(`Downloaded ${id.id} -> ${installPath}`);
-  await runSkillsAdd(installPath);
+  // `--yes` skips the interactive scope prompt (which otherwise leaves the skill
+  // in the cache but unregistered); `--global` targets the user-level dir.
+  const extraArgs = global ? ["--global", "--yes"] : ["--yes"];
+  await runSkillsAdd(installPath, extraArgs);
   await reportInstall(id.id);
+  console.log(`✓ ${id.id} installed ${global ? "globally" : "in this project"}`);
 }
