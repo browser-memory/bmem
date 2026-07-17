@@ -34,7 +34,7 @@ bmem add linkedin.com/get-profile   # one skill
 bmem add linkedin                   # every linkedin.com skill at once
 ```
 
-Requires Node.js 20 or newer.
+Requires Node.js 20 or newer, with `npx` available.
 
 ## Commands
 
@@ -49,7 +49,7 @@ Requires Node.js 20 or newer.
 | `bmem install` | Register the bundled **meta-skill** that teaches your agent the commands and how to map skill capabilities to its own browser tools |
 
 > `add`, `update` and `install` delegate to the standalone [`skills`](https://www.npmjs.com/package/skills)
-> installer (`npx skills add …`), which detects your agent (Claude Code, Cursor, …) — so `npx` must be available.
+> installer (`npx skills add …`), which detects your agent (Claude Code, Cursor, …).
 
 ## How a skill runs
 
