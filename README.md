@@ -53,7 +53,7 @@ Requires Node.js 20 or newer, with npx available.
 ## How a skill runs
 
 <p align="center">
-  <img src="./assets/how-it-works.svg" alt="How a skill runs: navigate, call the stored extractor, store evaluate.js once if needed, fetch + parse, return JSON" width="720">
+  <img src="https://raw.githubusercontent.com/browser-memory/bmem/main/assets/how-it-works.png" alt="How a skill runs: the agent calls the skill — navigate, call the stored extractor (store evaluate.js in the browser if needed), parse — and the JSON returns to the agent" width="720">
 </p>
 
 ## Sites
